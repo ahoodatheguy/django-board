@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def homepage(response):
+	context = {'title': 'Heres a title'}
+	return render(response, 'main/index.html', context)

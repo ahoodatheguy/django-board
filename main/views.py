@@ -26,28 +26,25 @@ def board(response, id):
 
 def post_message(response, id):
 	board = MessageBoard.objects.get(id=id)
-	messages = board.messages_set.all()
 
 	form = PostToBoard()
 	if response.method == 'POST':
-		if response.POST.get('post'):
-			form = PostToBoard(response.POST)
+		form = PostToBoard(response.POST)
 
 		if form.is_valid():
 			sender = form.cleaned_data['sender']
 			subject = form.cleaned_data['subject']
 			content = form.cleaned_data['content']
 			new_post = Messages(sender=sender, subject=subject,
-			                    content=content, board=board)
+                            content=content, board=board)
 			new_post.save()
-			return redirect('/')
+			return redirect(f'/boards/{id}')
+
 	else:
 		form = PostToBoard()
 	context = {
 		'title': f'Post to {board.name}',
 		'id': id,
-		'board': board,
-		'messages': messages,
 		'form': form
         }
 	return render(response, 'main/post.html', context)

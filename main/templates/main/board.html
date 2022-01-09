@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{board.name}}{% endblock title %}
+
+{% block content %}
+	<h1>{{board.name}}</h1>
+	<p>{{board.description}}</p>
+
+	{% for message in messages %}
+	<div class="message list-group-item">
+		<div class="d-flex justify-content-between">
+			<h6>{{message.sender}}</h6>
+			<p class="text-muted">{{message.date_posted}}</p>
+		</div>
+		<h4>{{message.subject}}</h4>
+		<p>{{message.content}}</p>
+	</div>
+	{% endfor %}
+{% endblock content %}
